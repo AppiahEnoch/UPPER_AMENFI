@@ -41,5 +41,30 @@ body {
 
 #submit{
   background-color: #271770;
+  color: #f1f1f1;
+  margin-top: 1rem;
 }
+
+#error_message{
+  color: red;
+  font-style: italic;
+  width: 100%;
+  font-weight: bold;
+  text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#password-input {
+  position: relative;
+  z-index: 1;
+}
+
+#show_password {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
 
