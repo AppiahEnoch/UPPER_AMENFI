@@ -72,6 +72,16 @@ border-radius: 0;
   transform: translateY(-50%);
   z-index: 2;
 }
+#show_confirm {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+
+
 
 #a_login{
   font-weight: bold;
@@ -84,6 +94,7 @@ border-radius: 0;
 }
 
 #forgot_password{
+  text-decoration: none;
   color: #271770;
   font-weight: bold;
 }
