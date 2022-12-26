@@ -13,26 +13,23 @@
     />
 
     <script
-    src="https://kit.fontawesome.com/c1db89cf54.js"
-    crossorigin="anonymous"
-  ></script>
+      src="https://kit.fontawesome.com/c1db89cf54.js"
+      crossorigin="anonymous"
+    ></script>
 
-  <script
-  src="https://code.jquery.com/jquery-3.6.1.min.js"
-  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-  integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-  crossorigin="anonymous"
-  referrerpolicy="no-referrer"
-></script>
-
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <title>Sign In</title>
-
-    
 
     <style>
       .bd-placeholder-img {
@@ -86,46 +83,34 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-
-
-
-
     </style>
 
     <!-- Custom styles for this template -->
     <link href="index.css" rel="stylesheet" />
   </head>
   <body class="text-center">
-
     <script>
+      $(document).ready(function () {
+        $("#show_password").click(function () {
+          var passwordInput = $("#floatingPassword");
+          var passwordType = passwordInput.attr("type");
+          var toggleIcon = $(this).find(".fa");
 
-
-$(document).ready(function() {
-  $('#show_password').click(function() {
-    var passwordInput = $('#floatingPassword');
-    var passwordType = passwordInput.attr('type');
-    var toggleIcon = $(this).find('.fa');
-
-    if (passwordType === 'password') {
-      passwordInput.attr('type', 'text');
-      toggleIcon.removeClass('fa-eye-slash').addClass('fa-eye');
-    } else {
-      passwordInput.attr('type', 'password');
-      toggleIcon.removeClass('fa-eye').addClass('fa-eye-slash');
-    }
-  });
-});
-
-
+          if (passwordType === "password") {
+            passwordInput.attr("type", "text");
+            toggleIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+          } else {
+            passwordInput.attr("type", "password");
+            toggleIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+          }
+        });
+      });
     </script>
 
-
-
-    
     <main class="form-signin w-100 m-auto">
       <form>
         <img
-        id="logo"
+          id="logo"
           class="mb-4"
           src="image/logo.jpg"
           alt=""
@@ -158,19 +143,21 @@ $(document).ready(function() {
             <i class="fa fa-eye-slash" aria-hidden="true"></i>
           </a>
         </div>
-        
-        <label id="error_message">
-          Invalid login attempt
-          </label>
+
+        <label id="error_message"> Invalid login attempt </label>
 
         <button id="submit" class="w-100 btn btn-lg" type="submit">
           Next
           <i id="" class="fas fa-spinner fa-pulse"></i>
         </button>
         <div id="signup" class="row">
-          <a  id="forgot_password" href="recoverPassword.html"> Forgot password</a>
-        <span id="span_signup" > New User? &nbsp; <a id="a_signup" href="signup1.html"> Sign up</a></span>
-  
+          <a id="forgot_password" href="recoverPassword.html">
+            Forgot password</a
+          >
+          <span id="span_signup">
+            New User? &nbsp;
+            <a id="a_signup" href="signup1.html"> Sign up</a></span
+          >
         </div>
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
       </form>
@@ -181,5 +168,73 @@ $(document).ready(function() {
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+
+      function myAjax1() {
+        $.ajax({
+          type: "post",
+          data: {
+            id: id,
+          },
+          cache: false,
+          url: "",
+          dataType: "text",
+          success: function (data, status) {
+            //alert(data);
+          },
+          error: function (xhr, status, error) {
+            // alert(error);
+          },
+        });
+      }
+
+      function getInput() {
+        username = $("#tf_username").val();
+        password = $("#tf_password").val();
+      }
+
+      function validate_mobile_g(mobile) {
+        var phoneRe = /^[0-9]{10}$/;
+        var digits = mobile.replace(/\D/g, "");
+        return phoneRe.test(digits);
+      }
+
+      const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
+
+      function aeEmpty(e) {
+        var ee = "";
+        try {
+          ee = e.trim();
+        } catch (error) {
+          return true;
+        }
+        try {
+          switch (e) {
+            case "":
+            case 0:
+            case "0":
+            case null:
+            case false:
+            case undefined:
+              return true;
+            default:
+              return false;
+          }
+        } catch (error) {
+          return true;
+        }
+      }
+
+      function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+      }
+    </script>
   </body>
 </html>
