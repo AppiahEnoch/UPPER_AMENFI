@@ -47,6 +47,7 @@ body {
 }
 
 #error_message{
+  display: none;
   color: red;
   font-style: italic;
   width: 100%;
@@ -68,7 +69,7 @@ body {
   z-index: 2;
 }
 
-#span_signup{
+#a_login{
   font-weight: bold;
   color: #271770;
 
@@ -78,4 +79,15 @@ body {
   color: #271770;
 }
 
+#forgot_password{
+  color: #271770;
+  font-weight: bold;
+}
+#forgot_password:hover{
+text-decoration: underline;
+}
 
+#span_signup{
+  color: #271770;
+  font-weight: bold;
+}
