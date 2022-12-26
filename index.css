@@ -106,3 +106,7 @@ text-decoration: underline;
   color: #271770;
   font-weight: bold;
 }
+
+#logo{
+  border-radius: 50%;
+}
