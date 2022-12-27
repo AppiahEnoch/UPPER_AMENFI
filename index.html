@@ -90,9 +90,13 @@
   </head>
   <body class="text-center">
     <script>
+      var username="";
+      var password="";
+
       $(document).ready(function () {
+        hideSpin();
         $("#show_password").click(function () {
-          var passwordInput = $("#floatingPassword");
+          var passwordInput = $("#tf_password");
           var passwordType = passwordInput.attr("type");
           var toggleIcon = $(this).find(".fa");
 
@@ -104,11 +108,34 @@
             toggleIcon.removeClass("fa-eye").addClass("fa-eye-slash");
           }
         });
+
+        $("#form").submit(function (e) {
+          e.preventDefault();
+          getInput();
+        
+
+          if(aeEmpty(username)){
+            showErrorText("Enter username");
+            return
+          }
+          if(aeEmpty(password)){
+            showErrorText("Enter password");
+            return
+          }
+          hideErrorText();
+          showSpin();
+
+          openPage_blank("recoverPassword.html")
+
+    
+
+       
+        });
       });
     </script>
 
     <main class="form-signin w-100 m-auto">
-      <form>
+      <form id="form">
         <img
           id="logo"
           class="mb-4"
@@ -134,11 +161,11 @@
           <input
             type="password"
             class="form-control"
-            id="floatingPassword"
+            id="tf_password"
             placeholder="Password"
             required
           />
-          <label for="floatingPassword">Password</label>
+          <label for="tf_assword">Password</label>
           <a id="show_password">
             <i class="fa fa-eye-slash" aria-hidden="true"></i>
           </a>
@@ -148,7 +175,7 @@
 
         <button id="submit" class="w-100 btn btn-lg" type="submit">
           Next
-          <i id="" class="fas fa-spinner fa-pulse"></i>
+          <i id="spin" class="fas fa-spinner fa-pulse"></i>
         </button>
         <div id="signup" class="row">
           <a id="forgot_password" href="recoverPassword.html">
@@ -170,7 +197,6 @@
     ></script>
 
     <script>
-
       function myAjax1() {
         $.ajax({
           type: "post",
@@ -235,6 +261,39 @@
       function isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
       }
+
+      function showErrorText(message){
+        $("#error_message").text(message);
+        $("#error_message").show();
+
+      }
+
+      function hideErrorText(){
+        $("#error_message").text('');
+        $("#error_message").hide();
+
+      }
+
+
+      function showSpin(){
+        $("#spin").show();
+      }
+      function hideSpin(){
+        $("#spin").hide();
+      }
+
+     function openPage_blank(url){
+      window.open(url, '_blank');
+
+      }
+     function openPage(url){
+      window.open(url);
+      }
     </script>
+
+
+
+
+
   </body>
 </html>
