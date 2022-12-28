@@ -125,7 +125,7 @@
           hideErrorText();
           showSpin();
 
-          openPage_blank("recoverPassword.html")
+          openPage_blank("adminpage.html")
 
     
 
@@ -144,48 +144,54 @@
           width="72"
           height="57"
         />
-        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      
 
-        <div class="form-floating mb-1">
-          <input
-            type="text"
-            class="form-control"
-            id="tf_username"
-            placeholder="username"
-            required
-          />
-          <label for="tf_username">Username</label>
-        </div>
 
-        <div class="form-floating mb-0">
-          <input
-            type="password"
-            class="form-control"
-            id="tf_password"
-            placeholder="Password"
-            required
-          />
-          <label for="tf_assword">Password</label>
-          <a id="show_password">
-            <i class="fa fa-eye-slash" aria-hidden="true"></i>
-          </a>
-        </div>
+<div class="col w-100 m-2 bg-light p-2">
+  <h1 id="please_signin" class="h3 mb-3 fw-normal">Please sign in</h1>
+  
+  <div class="form-floating mb-1">
+    <input
+      type="text"
+      class="form-control"
+      id="tf_username"
+      placeholder="username"
+      required
+    />
+    <label for="tf_username">Username</label>
+  </div>
 
-        <label id="error_message"> Invalid login attempt </label>
+  <div class="form-floating mb-0">
+    <input
+      type="password"
+      class="form-control"
+      id="tf_password"
+      placeholder="Password"
+      required
+    />
+    <label for="tf_assword">Password</label>
+    <a id="show_password">
+      <i class="fa fa-eye-slash" aria-hidden="true"></i>
+    </a>
+  </div>
 
-        <button id="submit" class="w-100 btn btn-lg" type="submit">
-          Next
-          <i id="spin" class="fas fa-spinner fa-pulse"></i>
-        </button>
-        <div id="signup" class="row">
-          <a id="forgot_password" href="recoverPassword.html">
-            Forgot password</a
-          >
-          <span id="span_signup">
-            New User? &nbsp;
-            <a id="a_signup" href="signup1.html"> Sign up</a></span
-          >
-        </div>
+  <label id="error_message"> Invalid login attempt </label>
+
+  <button id="submit" class="w-100 btn btn-lg" type="submit">
+    Next
+    <i id="spin" class="fas fa-spinner fa-pulse"></i>
+  </button>
+  <div id="signup" class="row">
+    <a id="forgot_password" href="recoverPassword.html">
+      Forgot password</a
+    >
+    <span id="span_signup">
+      New User? &nbsp;
+      <a id="a_signup" href="signup1.html"> Sign up</a></span
+    >
+  </div>
+</div>
+        
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
       </form>
     </main>
@@ -290,10 +296,6 @@
       window.open(url);
       }
     </script>
-
-
-
-
 
   </body>
 </html>

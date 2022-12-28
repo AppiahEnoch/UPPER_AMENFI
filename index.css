@@ -8,7 +8,7 @@ body {
   align-items: center;
   padding-top: 2.5rem;
   padding-bottom:  2.5rem;
-  background-color: #f5f5f5;
+  background-color: #271770;
 }
 
 .form-signin {
@@ -23,19 +23,35 @@ body {
 .form-signin input[type="text"] {
   margin-bottom: -1px;
   border-radius: 0;
+  font-weight: bold !important;
+  color: #271770 !important;
+}
+
+.form-signin input[type="tel"] {
+  margin-bottom: -1px;
+  border-radius: 0;
+  font-weight: bold !important;
+  color: #271770 !important;
 }
 
 .form-signin input[type="password"] {
   margin-bottom: 0.063rem;
-border-radius: 0;
-
+  border-radius: 0;
+  font-weight: bold !important;
+  color: #271770 !important;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 0.063rem;
+  border-radius: 0;
+  font-weight: bold !important;
+  color: #271770 !important;
 }
 
 
 
 .form-control:focus {
-  box-shadow: none;
-  border-color: #ccc;
+  box-shadow: #271770;
+  border-color: #271770;
 }
 
 #submit{
@@ -64,6 +80,7 @@ border-radius: 0;
   position: relative;
   z-index: 1;
 }
+
 
 #show_password {
   position: absolute;
@@ -111,4 +128,10 @@ text-decoration: underline;
 
 #logo{
   border-radius: 50%;
+}
+
+#please_signin{
+  color: #271770;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
