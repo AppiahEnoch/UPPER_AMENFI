@@ -125,7 +125,8 @@
           hideErrorText();
           showSpin();
 
-          openPage_blank("adminpage.html")
+          checkLogin();
+          
 
     
 
@@ -217,6 +218,37 @@
           },
           error: function (xhr, status, error) {
             // alert(error);
+          },
+        });
+      }
+      function checkLogin() {
+        $.ajax({
+          type: "post",
+          data: {
+            username: username,
+            password:password
+          },
+          cache: false,
+          url: "validateLogin.php",
+          dataType: "text",
+          success: function (data, status) {
+
+            if(data==900){
+
+              openPage("adminpage.html");
+              return
+            }
+            if(data==1){
+
+            alert("user")
+              return
+            }
+
+
+            
+          },
+          error: function (xhr, status, error) {
+             alert(error);
           },
         });
       }

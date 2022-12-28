@@ -1,21 +1,24 @@
 <?php
 require_once 'config.php';
 
-$v1="mobile";
+
+
+
+
 $v2="username";
 $v3="password";
-$v4="email";
-
+$pageNumber=0;
 // declare all fields
-$mobile= cleanInput( $_POST[$v1]);
-$username= cleanInput(   $_POST[$v2]);
+
+$username= cleanInput($_POST[$v2]);
 $password= cleanInput( $_POST[$v3]);
-$email= cleanInput( $_POST[$v4]);
+
+
 
 
 
 // array to test post and set status of vital variables
-$arrayOfAllNames=[$v1,$v2,$v3,$v4];
+$arrayOfAllNames=[$v2,$v3];
 
 // function to clean user input
 function cleanInput($data){
@@ -78,37 +81,79 @@ function inputsAreCorrect( $arrayOfAllNames) {
 
   // check to insert data if everything is fine.
   if(!inputsAreCorrect($arrayOfAllNames)){
+  
     exit();
   }
 
 
+  $correctInput=false;
+
+
+
+  $stmt = $conn->prepare("SELECT * FROM sysadmin WHERE 
+  username = ? AND password = ?");
+  $stmt->bind_param("ss", $username,$password);
+  $stmt->execute();
+
+  //fetching result would go here, but will be covered later
+  $result = $stmt->get_result();
+
+  if ($row = $result->fetch_assoc()) {
+       $n= $row['username'];
+       $p= $row['password'];
+       $mobile= $row['mobile'];
+ 
+
+      
+
+       session_start();
+    $_SESSION["mobile"]=$mobile;
+
+       echo 900;
+    
+       exit();
+     
+  }
+
+
+  
   
 
-//$sql = "DELETE  FROM sysadmin  where mobile='$mobile'";
-$sql = "DELETE  FROM sysadmin";
-$result = mysqli_query($conn, $sql);
+
+  
 // prepare and bind
-try{
 
-$stmt = $conn->prepare("INSERT INTO sysadmin (mobile, username, `password`,email) VALUES (?, ?, ?,?)");
-$stmt->bind_param("ssss", $mobile, $username, $password,$email);
- $stmt->execute();
 
- echo 1;
-$stmt->close();
-$conn->close();
-    
-}
-catch(Exception $e){
 
+  $stmt = $conn->prepare("SELECT * FROM userpassword WHERE 
+  username = ? AND password = ?");
+  $stmt->bind_param("ss", $username,$password);
+  $stmt->execute();
+
+  //fetching result would go here, but will be covered later
+  $result = $stmt->get_result();
+
+  if ($row = $result->fetch_assoc()) {
+       $n= $row['username'];
+       $p= $row['password'];
+       $s= $row['mobile'];
+       $correctInput=true;
+
+
+       session_start();
+    $_SESSION["mobile"]=$s;
+
+
+    echo 1;
 
   
+      // exit();
+     
+  }
+  else{
+   $pageNumber=0;
+ 
+  }
 
-   
-    
-}
 
 
-
-  
-  
