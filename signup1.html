@@ -410,7 +410,7 @@
           url: "getAuthCode2.php",
           dataType: "text",
           success: function (data, status) {
-            // alert(data);
+             alert(data);
 
             if (data == 1) {
               showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
@@ -432,7 +432,7 @@
             sendEmailVCode();
           },
           error: function (xhr, status, error) {
-            //  alert(error);
+             alert(error);
           },
         });
       }
@@ -460,6 +460,7 @@
           url: "OTP.php",
           dataType: "text",
           success: function (data, status) {
+            alert(data)
             hideSpin();
 
             if (aeEmpty(data)) {
@@ -473,7 +474,7 @@
             showAEMsuccess("WE HAVE SENT CODE TO " + email, "ENTER CODE!");
           },
           error: function (xhr, status, error) {
-            //alert(error);
+            alert(error);
           },
         });
       }
