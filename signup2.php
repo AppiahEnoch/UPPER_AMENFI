@@ -1,3 +1,10 @@
+<?php
+include "checkReg1.php";
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,23 +20,26 @@
     />
 
     <script
-      src="https://kit.fontawesome.com/c1db89cf54.js"
-      crossorigin="anonymous"
-    ></script>
+    src="https://kit.fontawesome.com/c1db89cf54.js"
+    crossorigin="anonymous"
+  ></script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.6.1.min.js"
-      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-      integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+  <script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+  integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+
 
     <title>Sign In</title>
+
+
 
     <style>
       .bd-placeholder-img {
@@ -83,81 +93,62 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+
+
+
     </style>
 
     <!-- Custom styles for this template -->
     <link href="index.css" rel="stylesheet" />
   </head>
   <body class="text-center">
+
     <script>
-      var email = "";
-      var mobile = "";
-      var ghanaCard = "";
-      var code = "";
-      var genCode = "";
 
-      $(document).ready(function () {
-        hideCodeField();
+var code="";
+var fname=""
+var mname=""
+var lname=""
 
-        hideSpin();
+$(document).ready(function() {
+hideSpin();
+  $("#form").submit(function (e) {
+    e.preventDefault();
+    showSpin();
+    getInput();
 
-        $("#form").submit(function (e) {
-          e.preventDefault();
-          if ($("#codeHide").is(":visible")) {
-            if (!aeEmpty(genCode)) {
-              var userInput = $("#tf_codehideCode").val();
+    isCodeValid();
 
-              if (aeEmpty(userInput)) {
-                $("#tf_codehideCode").val("");
-                showAEMerror("INVALID VERIFICATION CODE");
-                return;
-              }
-              userInput = trimV(userInput);
+  });
+     
+  $("#ss").keyup(function () {});
 
-              if (!passwordConfirm(genCode, userInput)) {
-                $("#tf_codehideCode").val("");
-                showAEMerror("INVALID VERIFICATION CODE");
-                return;
-              }
+$("#myModal").on("click", "#btResend", function (e) {});
 
-              insertDetails();
+$("#aeMsuccessw").on("hidden.bs.modal", function () {
+  openPageReplace("signup3.php")
+ 
+});
 
-              showAEMsuccessw("CODE IS ACCEPTED! LET'S CONTINUE..");
+$("#aeMerror").on("hidden.bs.modal", function () {
+  hideSpin();
+});
 
-              return;
-            }
-          }
 
-          showSpin();
-          getInput();
 
-          if (!validateGhanaCard(ghanaCard)) {
-            $("#tf_ghanaCard").val("");
-            showAEMerror("Card Format:  GHA-0000000000-0");
-            return;
-          }
 
-          getCode();
-        });
 
-        $("#ss").keyup(function () {});
-
-        $("#myModal").on("click", "#btResend", function (e) {});
-
-        $("#aeMsuccessw").on("hidden.bs.modal", function () {
-          openPageReplace("signup2.php");
-        });
-
-        $("#aeMerror").on("hidden.bs.modal", function () {
-          hideSpin();
-        });
-      });
+});
     </script>
 
+
+
+    
     <main class="form-signin w-100 m-auto">
       <form id="form">
         <img
-          id="logo"
+        id="logo"
           class="mb-4"
           src="image/logo.jpg"
           alt=""
@@ -166,68 +157,80 @@
         />
 
         <div class="col w-100 m-2 bg-light p-2">
-          <h1 id="please_signin" class="h3 mb-3 fw-normal">
-            Registration Page 1/3
-          </h1>
 
-          <div class="form-floating mb-1">
-            <input
-              type="email"
-              class="form-control"
-              id="tf_email"
-              placeholder="name@gmail.com"
-              required
-            />
-            <label for="tf_email">Email e.g. name@gmail.com</label>
-          </div>
 
-          <div class="form-floating mb-1">
-            <input
-              type="tel"
-              pattern="[0-9]{10}"
-              class="form-control"
-              id="tf_mobile"
-              placeholder="Mobile e.g. 0549822202"
-              required
-            />
-            <label for="tf_mobile">Mobile e.g. 0549822202</label>
-          </div>
+          
+        <h1 id="please_signin" class="h3 mb-3 fw-normal">Registration Page 2/3</h1>
 
-          <div class="form-floating mb-1">
-            <input
-              type="text"
-              class="form-control"
-              id="tf_ghanaCard"
-              placeholder="Ghana Card e.g. GHA-0000000000-0"
-              required
-            />
-            <label for="tf_ghanaCard">Ghana Card e.g. GHA-0000000000-0</label>
-          </div>
-
-          <div id="codeHide" class="form-floating mb-1">
-            <input
-              name="tf_1"
-              type="text"
-              class="form-control"
-              id="tf_codehideCode"
-              placeholder="Email verification Code"
-            />
-            <label for="tf_codehideCode">Email Verification Code</label>
-          </div>
-          <label id="error_message"> Invalid Code! </label>
-
-          <button id="submit" class="w-100 btn btn-lg" type="submit">
-            Next
-            <i id="spin" class="fas fa-spinner fa-pulse"></i>
-          </button>
-          <div id="signup" class="row">
-            <span> &nbsp; <a id="a_login" href="index.php">Login </a></span>
-          </div>
+        <div class="form-floating mb-1">
+          <input
+            type="text"
+            class="form-control"
+            id="tf_code"
+            placeholder="Registration Code"
+            required
+          />
+          <label for="tf_code">Registration Code</label>
         </div>
+        
+
+        <div class="form-floating mb-1">
+          <input
+            type="text"
+            class="form-control"
+            id="tf_fName"
+            placeholder="First Name"
+            required
+          />
+          <label for="tf_fName">First name</label>
+        </div>
+        
+        <div class="form-floating mb-1">
+          <input
+            type="text"
+            class="form-control"
+            id="tf_mName"
+            placeholder="Middle name(s)"
+           
+          />
+          <label for="tf_mName">Middle name(s)</label>
+        </div>
+
+        <div class="form-floating mb-1">
+          <input
+            type="text"
+            class="form-control"
+            id="tf_lName"
+            placeholder="Last name"
+            required
+          />
+          <label for="tf_lName">Last name</label>
+        </div>
+        <label id="error_message">
+          Invalid Registration Code
+          </label>
+
+        <button id="submit" class="w-100 btn btn-lg" type="submit">
+          Next
+          <i id="spin" class="fas fa-spinner fa-pulse"></i>
+        </button>
+        <div id="signup" class="row">
+        <span> &nbsp; <a id="a_login" href="index.php">Login </a></span>
+        </div>
+
+
+
+
+
+        </div>
+
+
 
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
       </form>
     </main>
+
+
 
     <!-- BEGIN  MODALS-->
 
@@ -255,7 +258,7 @@
     </div>
 
     <!-- END  MODALS-->
-
+ 
     <!-- BEGIN  MODALS-->
 
     <div id="aeMsuccessw" class="modal fade" tabindex="-3">
@@ -354,11 +357,20 @@
     </div>
     <!-- END AEMODEL-->
 
+
+
+
+
+
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+
+
+
 
     <script>
       function myAjax1() {
@@ -379,98 +391,55 @@
         });
       }
 
+  
+
+
       function insertDetails() {
         $.ajax({
           type: "post",
           data: {
-            mobile: mobile,
-            email: email,
-            ghanaCard: ghanaCard,
+            fname: fname,
+            mname: mname,
+            lname: lname,
+            code:code
+            
           },
           cache: false,
-          url: "insertSignup1.php",
+          url: "insertSignUp2.php",
           dataType: "text",
           success: function (data, status) {
-            //alert("da: "+data);
+           // alert(data)
+            if(data==1){
+              showAEMsuccessw("CONGRATS! LETS CONTINUE...")
+            }
           },
           error: function (xhr, status, error) {
-            // alert(error);
+            alert(error);
           },
         });
       }
 
-      function getCode() {
-        $.ajax({
-          type: "post",
-          data: {
-            mobile: mobile,
-            email: email,
-          },
-          cache: false,
-          url: "getAuthCode2.php",
-          dataType: "text",
-          success: function (data, status) {
-            // alert(data);
 
-            if (data == 1) {
-              showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
-              $("#tf_mobile").val("");
-              return;
-            }
 
-            if (data == 2) {
-              showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
-              $("#tf_mobile").val("");
-              return;
-            }
-
-            code = data;
-            genCode = data;
-
-            //  alert(data);
-
-            sendEmailVCode();
-          },
-          error: function (xhr, status, error) {
-            //  alert(error);
-          },
-        });
-      }
-
-      function sendEmailVCode() {
-        var receiver = email;
-
-        var subject = "EMAIL VERIFICATION CODE";
-        var sendingCode = code;
-
-        var htmlFile = "OTP.html";
-
-        // alert("username:"+username1)
-        // alert("code:"+sendingCode)
+      function isCodeValid() {
 
         $.ajax({
           type: "post",
           data: {
-            subject: subject,
-            receiver: receiver,
-            code: sendingCode,
-            htmlFile: htmlFile,
+            code: code
           },
           cache: false,
-          url: "OTP.php",
+          url: "selectAutCode.php",
           dataType: "text",
           success: function (data, status) {
-            hideSpin();
-
-            if (aeEmpty(data)) {
-              showAEMerror("COULD NOT SEND CODE. EMAIL DOES NOT EXIST");
-
+            if(!(data==1)){
+              showAEMerror("INVALID REGISTRATION CODE");
+              $("#tf_code").val('');
               return;
             }
 
-            showCodeField();
-
-            showAEMsuccess("WE HAVE SENT CODE TO " + email, "ENTER CODE!");
+            insertDetails();
+            
           },
           error: function (xhr, status, error) {
             //alert(error);
@@ -479,15 +448,30 @@
       }
 
       function getInput() {
-        email = $("#tf_email").val();
-        mobile = $("#tf_mobile").val();
-        ghanaCard = $("#tf_ghanaCard").val();
+        code = $("#tf_code").val();
+        fname = $("#tf_fName").val();
+        mname = $("#tf_mName").val();
+        lname = $("#tf_lName").val();
 
-        email = trimV(email);
-        mobile = trimV(mobile);
-        ghanaCard = trimV(ghanaCard);
+        code=trimV(code);
+        fname=trimV(fname);
+        mname=trimV(mname);
+        lname=trimV(lname);
+
+   try {
+        fname=fname.toUpperCase();
+        lname=lname.toUpperCase();
+        mname=mname.toUpperCase();
+    
+   } catch (error) {
+    
+   }
+     
+
       }
 
+      
+  
       function validate_mobile_g(mobile) {
         var phoneRe = /^[0-9]{10}$/;
         var digits = mobile.replace(/\D/g, "");
@@ -554,7 +538,7 @@
         window.open(url);
       }
 
-      function showAEMsuccess(aeBody, aeTitle) {
+      function showAEMsuccess(aeBody,aeTitle) {
         if (!aeEmpty(aeTitle)) {
           $("#aeAlertTitle").text(aeTitle);
         }
@@ -575,6 +559,12 @@
         }
         $("#aeMsuccessw").modal("show");
       }
+
+
+
+
+
+
 
       function showAEMerror(aeBody, aeTitle) {
         if (!aeEmpty(aeTitle)) {
@@ -640,9 +630,13 @@
         return true;
       }
 
-      function openPageReplace(url) {
+ 
+      function openPageReplace(url){
         location.href = url;
       }
     </script>
+
+
+
   </body>
 </html>

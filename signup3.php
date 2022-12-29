@@ -1,3 +1,8 @@
+
+<?php
+include "checkReg2.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -83,6 +88,10 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
+      #error_message{
+    font-size: small !important;
+}
     </style>
 
     <!-- Custom styles for this template -->
@@ -90,62 +99,114 @@
   </head>
   <body class="text-center">
     <script>
-      var email = "";
-      var mobile = "";
-      var ghanaCard = "";
-      var code = "";
-      var genCode = "";
+      var username = "";
+      var password = "";
+      var confirmP = "";
 
       $(document).ready(function () {
-        hideCodeField();
+        $("#show_password").click(function () {
+          var passwordInput = $("#tf_password");
+          var passwordType = passwordInput.attr("type");
+          var toggleIcon = $(this).find(".fa");
 
-        hideSpin();
+          if (passwordType === "password") {
+            passwordInput.attr("type", "text");
+            toggleIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+          } else {
+            passwordInput.attr("type", "password");
+            toggleIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+          }
+        });
+
+        $("#show_confirm").click(function () {
+          var passwordInput = $("#tf_confirm");
+          var passwordType = passwordInput.attr("type");
+          var toggleIcon = $(this).find(".fa");
+
+          if (passwordType === "password") {
+            passwordInput.attr("type", "text");
+            toggleIcon.removeClass("fa-eye-slash").addClass("fa-eye");
+          } else {
+            passwordInput.attr("type", "password");
+            toggleIcon.removeClass("fa-eye").addClass("fa-eye-slash");
+          }
+        });
 
         $("#form").submit(function (e) {
           e.preventDefault();
+
           if ($("#codeHide").is(":visible")) {
-            if (!aeEmpty(genCode)) {
-              var userInput = $("#tf_codehideCode").val();
-
-              if (aeEmpty(userInput)) {
-                $("#tf_codehideCode").val("");
-                showAEMerror("INVALID VERIFICATION CODE");
-                return;
-              }
-              userInput = trimV(userInput);
-
-              if (!passwordConfirm(genCode, userInput)) {
-                $("#tf_codehideCode").val("");
-                showAEMerror("INVALID VERIFICATION CODE");
-                return;
-              }
-
-              insertDetails();
-
-              showAEMsuccessw("CODE IS ACCEPTED! LET'S CONTINUE..");
-
-              return;
-            }
           }
-
+      
           showSpin();
           getInput();
 
-          if (!validateGhanaCard(ghanaCard)) {
-            $("#tf_ghanaCard").val("");
-            showAEMerror("Card Format:  GHA-0000000000-0");
-            return;
+          if (!validatePassword(password)) {
+            showAEMerror("WEAK PASSWORD!", " PROVIDE STRONGER PASSWORD");
+            return
           }
 
-          getCode();
+
+          if(!(passwordConfirm(password,confirmP))){
+            showAEMerror("PASSWORD MISMATCH!");
+            return
+          }
+
+          isUsernameAvail();
+
+
+
         });
 
-        $("#ss").keyup(function () {});
+        $("#tf_password").keyup(function () {
+          getInput();
+
+          if (!validatePassword(password)) {
+            var m =
+              "must be at least 8 characters long " +
+              " and contains at least one lowercase letter, one " +
+              "uppercase letter, one number, and one special character";
+            showErrorText(m);
+          }
+          else{
+            hideErrorText('');
+          }
+        });
+
+        $("#tf_confirm").keyup(function () {
+          getInput();
+
+          if (!validatePassword(password)) {
+            var m =
+              "must be at least 8 characters long " +
+              " and contains at least one lowercase letter, one " +
+              "uppercase letter, one number, and one special character";
+            showErrorText(m);
+
+            return
+          }
+          else{
+            hideErrorText('');
+           
+          }
+
+          if(!(passwordConfirm(password,confirmP))){
+            showErrorText("Password Mismatch")
+            return
+          }
+          else{
+            hideErrorText('')
+          }
+
+
+
+
+        });
 
         $("#myModal").on("click", "#btResend", function (e) {});
 
         $("#aeMsuccessw").on("hidden.bs.modal", function () {
-          openPageReplace("signup2.php");
+          openPageReplace("index.php");
         });
 
         $("#aeMerror").on("hidden.bs.modal", function () {
@@ -166,62 +227,55 @@
         />
 
         <div class="col w-100 m-2 bg-light p-2">
-          <h1 id="please_signin" class="h3 mb-3 fw-normal">
-            Registration Page 1/3
-          </h1>
-
-          <div class="form-floating mb-1">
-            <input
-              type="email"
-              class="form-control"
-              id="tf_email"
-              placeholder="name@gmail.com"
-              required
-            />
-            <label for="tf_email">Email e.g. name@gmail.com</label>
-          </div>
-
-          <div class="form-floating mb-1">
-            <input
-              type="tel"
-              pattern="[0-9]{10}"
-              class="form-control"
-              id="tf_mobile"
-              placeholder="Mobile e.g. 0549822202"
-              required
-            />
-            <label for="tf_mobile">Mobile e.g. 0549822202</label>
-          </div>
+          <h1 id="please_signin" class="h3 mb-3 fw-normal">Login Details</h1>
 
           <div class="form-floating mb-1">
             <input
               type="text"
               class="form-control"
-              id="tf_ghanaCard"
-              placeholder="Ghana Card e.g. GHA-0000000000-0"
+              id="tf_username"
+              placeholder="username"
               required
             />
-            <label for="tf_ghanaCard">Ghana Card e.g. GHA-0000000000-0</label>
+            <label for="floatingInput">Username</label>
           </div>
 
-          <div id="codeHide" class="form-floating mb-1">
+          <div class="form-floating mb-0">
             <input
-              name="tf_1"
-              type="text"
+              type="password"
               class="form-control"
-              id="tf_codehideCode"
-              placeholder="Email verification Code"
+              id="tf_password"
+              placeholder="Password"
+              required
             />
-            <label for="tf_codehideCode">Email Verification Code</label>
+            <label for="floatingPassword">Password</label>
+            <a id="show_password">
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </a>
           </div>
-          <label id="error_message"> Invalid Code! </label>
+
+          <div class="form-floating mb-0">
+            <input
+              type="password"
+              class="form-control"
+              id="tf_confirm"
+              placeholder="Confirm Password"
+              required
+            />
+            <label for="tf_confirm">Confirm Password</label>
+            <a id="show_confirm">
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <label id="error_message"> Password Mismatch! </label>
 
           <button id="submit" class="w-100 btn btn-lg" type="submit">
-            Next
-            <i id="spin" class="fas fa-spinner fa-pulse"></i>
+            Submit
+            <i id="" class="fas fa-spinner fa-pulse"></i>
           </button>
           <div id="signup" class="row">
-            <span> &nbsp; <a id="a_login" href="index.php">Login </a></span>
+            <span> &nbsp; <a id="a_login" href="index.php"> Login</a></span>
           </div>
         </div>
 
@@ -354,12 +408,6 @@
     </div>
     <!-- END AEMODEL-->
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
-
     <script>
       function myAjax1() {
         $.ajax({
@@ -383,15 +431,21 @@
         $.ajax({
           type: "post",
           data: {
-            mobile: mobile,
-            email: email,
-            ghanaCard: ghanaCard,
+            username: username,
+            password:password
           },
           cache: false,
-          url: "insertSignup1.php",
+          url: "insertSignUp3.php",
           dataType: "text",
           success: function (data, status) {
-            //alert("da: "+data);
+            if(data==1){
+
+              showAEMsuccessw("CONGRATULATIONS! YOU HAVE COMPLETED " +
+             "YOUR REGISTRATION SUCCESSFULLY! REMEMBER TO USE YOUR " +
+              "USERNAME AND PASSWORD TO LOGIN");
+            }
+           
+
           },
           error: function (xhr, status, error) {
             // alert(error);
@@ -399,93 +453,43 @@
         });
       }
 
-      function getCode() {
+      function isUsernameAvail() {
         $.ajax({
           type: "post",
           data: {
-            mobile: mobile,
-            email: email,
+            username: username,
           },
           cache: false,
-          url: "getAuthCode2.php",
+          url: "selectUserName2.php",
           dataType: "text",
           success: function (data, status) {
-            // alert(data);
 
-            if (data == 1) {
-              showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
-              $("#tf_mobile").val("");
-              return;
+            if(data==1){
+              showAEMerror("CHANGE YOUR USERNAME")
+              $("#tf_username").val('')
+              return
             }
 
-            if (data == 2) {
-              showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
-              $("#tf_mobile").val("");
-              return;
-            }
 
-            code = data;
-            genCode = data;
+            insertDetails();
 
-            //  alert(data);
 
-            sendEmailVCode();
+           
           },
           error: function (xhr, status, error) {
-            //  alert(error);
-          },
-        });
-      }
-
-      function sendEmailVCode() {
-        var receiver = email;
-
-        var subject = "EMAIL VERIFICATION CODE";
-        var sendingCode = code;
-
-        var htmlFile = "OTP.html";
-
-        // alert("username:"+username1)
-        // alert("code:"+sendingCode)
-
-        $.ajax({
-          type: "post",
-          data: {
-            subject: subject,
-            receiver: receiver,
-            code: sendingCode,
-            htmlFile: htmlFile,
-          },
-          cache: false,
-          url: "OTP.php",
-          dataType: "text",
-          success: function (data, status) {
-            hideSpin();
-
-            if (aeEmpty(data)) {
-              showAEMerror("COULD NOT SEND CODE. EMAIL DOES NOT EXIST");
-
-              return;
-            }
-
-            showCodeField();
-
-            showAEMsuccess("WE HAVE SENT CODE TO " + email, "ENTER CODE!");
-          },
-          error: function (xhr, status, error) {
-            //alert(error);
+             alert(error);
           },
         });
       }
 
       function getInput() {
-        email = $("#tf_email").val();
-        mobile = $("#tf_mobile").val();
-        ghanaCard = $("#tf_ghanaCard").val();
+        username = $("#tf_username").val();
+        password = $("#tf_password").val();
+        confirmP = $("#tf_confirm").val();
 
-        email = trimV(email);
-        mobile = trimV(mobile);
-        ghanaCard = trimV(ghanaCard);
+        username = trimV(username);
+        password = trimV(password);
+        confirmP = trimV(confirmP);
       }
 
       function validate_mobile_g(mobile) {
@@ -643,6 +647,25 @@
       function openPageReplace(url) {
         location.href = url;
       }
+
+      function validatePassword(password) {
+        var passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+          var m =
+              "must be at least 8 characters long " +
+              " and contains at least one lowercase letter, one " +
+              "uppercase letter, one number, and one special character";
+
+        return passwordRegex.test(password);
+      }
+
+
     </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

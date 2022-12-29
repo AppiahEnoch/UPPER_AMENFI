@@ -1,3 +1,8 @@
+<?php
+include "checkAdmin.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -130,18 +135,6 @@
             toggleIcon.removeClass("fa-eye").addClass("fa-eye-slash");
           }
         });
-   
-
-
-
-
-
-
-
-
-
-
-
 
         hideSpin();
         $("#form").submit(function (e) {
@@ -161,24 +154,22 @@
             return;
           }
 
-        
-          if(!(passwordConfirm(new_password,confirmPassword))){
-            showAEMerror("PASSWORD MISMATCH!")
+          if (!passwordConfirm(new_password, confirmPassword)) {
+            showAEMerror("PASSWORD MISMATCH!");
 
             hideSpin();
-            return
+            return;
           }
 
-
-
-
-          isUserNameTaken();
-
-
-          
+          checkOldCode();
         });
 
-        $("#ff").keyup(function () {});
+        $("#ll2").click(function () {
+          showMYesNo(
+            "DO YOU WANT TO DELETE ALL RECORDS IN THE SYSTEM?" +
+              " NB: YOU CANNOT UNDO THIS ACTION ONCE IT IS DONE."
+          );
+        });
 
         $("#generate_code").click(function () {
           showSpin();
@@ -192,19 +183,26 @@
           generateCode();
         });
 
-        $("#myModal").on("click", "#btResend", function (e) {});
+        $("#aeMyesNo").on("click", "#aeMyesNoBt", function (e) {
+          $("#aeMyesNo").modal("hide");
+          showMYesNod(
+            "Are you sure you want to delete all records from the system? NB: you CANNOT UNDO this action"
+          );
+        });
 
         $("#aeMsuccess").on("hidden.bs.modal", function () {
-         refreshPage();
+          refreshPage();
         });
 
         $("#aeMerror").on("hidden.bs.modal", function () {
-         hideSpin();
+          hideSpin();
         });
 
-
+        $("#aeMyesNod").on("click", "#aeMyesNoBtd", function (e) {
+          $("#aeMyesNod").modal("hide");
+          deleteAll();
+        });
       });
-
     </script>
 
     <header>
@@ -230,13 +228,20 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a href="index.html" id="logout" class="nav-link"> Log out</a>
+                <a href="index.php" id="logout" class="nav-link"> Log out</a>
               </li>
               <li class="nav-item">
-                <a id="ll1" class="nav-link" href="adminpage.html">
+                <a id="ll1" class="nav-link" href="adminpage.php">
                   <i class="fa fa-" aria-hidden="true"></i>
                   <i class="fa fa-sign-out" aria-hidden="true"></i>
                   Go Back</a
+                >
+              </li>
+              <li class="nav-item">
+                <a id="ll2" class="nav-link">
+                  <i class="fa fa-" aria-hidden="true"></i>
+
+                  Empty System</a
                 >
               </li>
             </ul>
@@ -470,6 +475,58 @@
     </div>
     <!-- END AEMODEL-->
 
+    <!-- BEGIN AEMODEL-->
+    <div id="aeMyesNod" class="modal" tabindex="-1">
+      <div
+        id="aeMyesNd"
+        style="max-width: 20rem; background-color: gray"
+        class="modal-dialog"
+      >
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-bg-danger">
+            <h5 id="aeMTitled" class="modal-title">
+              <strong>CONFIRM DELETE ACTION!</strong>
+            </h5>
+          </div>
+          <div class="modal-body">
+            <p style="font-weight: bold; color: red">
+              <span id="aeMBodyd"> Do you want to perform this action? </span>
+            </p>
+            <i
+              style="color: red"
+              class="fa fa-trash fa-2x"
+              aria-hidden="true"
+            ></i>
+          </div>
+
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-6">
+                <button
+                  id="aeMyesNoBtd"
+                  type="button"
+                  class="btn btn-danger text-bg-danger"
+                >
+                  Yes
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  id="btClose"
+                  type="button"
+                  class="btn btn-primary text-bg-danger"
+                  data-bs-dismiss="modal"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END AEMODEL-->
+
     <footer id="myFooter" class="py-3 fixed-bottom">
       <div class="container">
         <span class="text-muted">&COPY;2022 All rights reserved</span>
@@ -511,6 +568,13 @@
         }
         $("#aeMyesNo").modal("show");
       }
+
+      function showMYesNod(aeBody) {
+        if (!aeEmpty(aeBody)) {
+          $("#aeMBodyd").text(aeBody);
+        }
+        $("#aeMyesNod").modal("show");
+      }
     </script>
 
     <script>
@@ -531,39 +595,75 @@
           },
         });
       }
-      function isUserNameTaken() {
+      function deleteAll() {
+        $.ajax({
+          type: "post",
+          data: {},
+          cache: false,
+          url: "deleteSystem.php",
+          dataType: "text",
+          success: function (data, status) {
+            if (data == 1) {
+              showAEMsuccess("ALL RECORDS DELETED SUCCESSFULLY!");
+            } else {
+              showAEMerror("COULD NOT DELETE RECORDS");
+            }
+          },
+          error: function (xhr, status, error) {
+          //  alert(error);
+          },
+        });
+      }
 
-      
+      function checkOldCode() {
+        $.ajax({
+          type: "post",
+          data: {
+            mobile: adminMobile,
+            password: old_password,
+          },
+          cache: false,
+          url: "selectAdminOldCode.php",
+          dataType: "text",
+          success: function (data, status) {
+            if (!(data == 1)) {
+              showAEMerror("Wrong Old Password");
+              $("#tf_old_password").val("");
+              return;
+            }
+
+            isUserNameTaken();
+          },
+          error: function (xhr, status, error) {
+           // alert(error);
+          },
+        });
+      }
+
+      function isUserNameTaken() {
         $.ajax({
           type: "post",
           data: {
             username: username,
-            mobile: adminMobile
+            mobile: adminMobile,
           },
           cache: false,
           url: "selectUserName.php",
           dataType: "text",
           success: function (data, status) {
-           // alert("d: "+data)
-            if(data==1){
-              showAEMerror("PLEASE ENTER DIFFERENT USERNAME.")
-              username = $("#tf_username").val('');
-              return
+            // alert("d: "+data)
+            if (data == 1) {
+              showAEMerror("PLEASE ENTER DIFFERENT USERNAME.");
+              username = $("#tf_username").val("");
+              return;
             }
-            if(data==2){
-              showAEMerror("PLEASE ENTER DIFFERENT MOBILE NUMBER.")
-              adminMobile = $("#tf_mobile").val('');
-              return
+            if (data == 2) {
+              showAEMerror("PLEASE ENTER DIFFERENT MOBILE NUMBER.");
+              adminMobile = $("#tf_mobile").val("");
+              return;
             }
 
             insertPassword();
-
-           
-       
-
-          
-        
-         
           },
           error: function (xhr, status, error) {
             // alert(error);
@@ -572,8 +672,6 @@
       }
 
       function insertPassword() {
-
-   
         $.ajax({
           type: "post",
           data: {
@@ -586,10 +684,10 @@
           url: "insertAdminPassword.php",
           dataType: "text",
           success: function (data, status) {
-            showAEMsuccess("PASSWORD RESET MADE SUCCESSFULLY!")
+            showAEMsuccess("PASSWORD RESET MADE SUCCESSFULLY!");
           },
           error: function (xhr, status, error) {
-            showAEMerror("COULD NOT RESET YOUR PASSWORD.")
+            showAEMerror("COULD NOT RESET YOUR PASSWORD.");
 
             //alert(error);
           },
@@ -610,7 +708,7 @@
             getCode();
           },
           error: function (xhr, status, error) {
-            alert(error);
+          //  alert(error);
           },
         });
       }
@@ -625,12 +723,20 @@
           url: "getAuthCode.php",
           dataType: "text",
           success: function (data, status) {
+          
             var output = data.split("|");
-            // alert(data)
 
             code = output[0];
             email = output[1];
             emailUserName = output[2];
+
+            if(( emailUserName.length)<3){
+              emailUserName="NEW USER";
+            }
+         
+      
+          //   alert(data)
+
 
             // alert("outPut :"+code)
 
@@ -648,14 +754,17 @@
 
       function sendEmailVCode() {
         var receiver = email;
+    
         var username1 = emailUserName;
         var subject = "USER REGISTRATION CODE";
         var sendingCode = code;
 
         var htmlFile = "verifyEmailRegCode.html";
 
-        // alert("username:"+username1)
+       //  alert("username:"+username1)
         // alert("code:"+sendingCode)
+        // alert("rec: "+receiver)
+      
 
         $.ajax({
           type: "post",
@@ -681,7 +790,8 @@
             showAEMsuccess("CODE HAS BEEN SENT SUCCESSFULLY TO " + email);
           },
           error: function (xhr, status, error) {
-            alert(error);
+          
+          //  alert(error);
           },
         });
       }
@@ -695,18 +805,14 @@
         adminEmail = $("#tf_email").val();
         adminMobile = $("#tf_mobile").val();
 
-
-
-             adminMobile =trimV(adminMobile);
-             mobile =trimV(mobile);
-             username =trimV(username);
-             old_password=trimV(old_password);
-             new_password=trimV(new_password);
-             confirmPassword=trimV(confirmPassword);
-             adminEmail=trimV(adminEmail);
-             adminMobile=trimV(adminMobile);
-     
-
+        adminMobile = trimV(adminMobile);
+        mobile = trimV(mobile);
+        username = trimV(username);
+        old_password = trimV(old_password);
+        new_password = trimV(new_password);
+        confirmPassword = trimV(confirmPassword);
+        adminEmail = trimV(adminEmail);
+        adminMobile = trimV(adminMobile);
       }
 
       function validate_mobile_g(mobile) {
@@ -781,17 +887,76 @@
         return a == b;
       }
 
-      function trimV(a){
+      function trimV(a) {
         try {
-          a=a.trim();
-        } catch (error) {
-          
-        }
+          a = a.trim();
+        } catch (error) {}
         return a;
       }
 
-      function refreshPage(){
+      function refreshPage() {
         location.reload();
+      }
+
+      function passwordConfirm(a, b) {
+        return a == b;
+      }
+
+      function trimV(a) {
+        try {
+          a = a.trim();
+        } catch (error) {}
+        return a;
+      }
+
+      function refreshPage() {
+        location.reload();
+      }
+
+      function showCodeField() {
+        $("#codeHide").show();
+      }
+      function hideCodeField() {
+        $("#codeHide").hide();
+      }
+
+      function validateGhanaCard(ghanaCard) {
+        if (aeEmpty(ghanaCard)) {
+          return false;
+        }
+        ghanaCard = ghanaCard.toUpperCase();
+        var i = ghanaCard.length;
+
+        if (i < 8) {
+          return false;
+        }
+
+        if (i > 20) {
+          return false;
+        }
+
+        ii = ghanaCard.substring(0, 4);
+
+        if (!passwordConfirm(ii, "GHA-")) {
+          return false;
+        }
+
+        return true;
+      }
+
+      function openPageReplace(url) {
+        location.href = url;
+      }
+
+      function validatePassword(password) {
+        var passwordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+        var m =
+          "must be at least 8 characters long " +
+          " and contains at least one lowercase letter, one " +
+          "uppercase letter, one number, and one special character";
+
+        return passwordRegex.test(password);
       }
     </script>
   </body>

@@ -135,3 +135,24 @@ text-decoration: underline;
   font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+
+#aeMsucces{
+  background-color: #271770;
+  color: white;
+}
+
+#aeMsuccesw{
+  background-color: #271770;
+  color: white;
+}
+
+.btn-close{
+  background-color: #fff;
+  color: white !important;
+}
+
+#aeMerro{
+  background-color:red;
+  color: white;
+}

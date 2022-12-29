@@ -1,3 +1,9 @@
+<?php
+
+include "checkAdmin.php";
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -112,7 +118,7 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a href="index.html" id="logout" class="nav-link"> Log out</a>
+                <a href="index.php" id="logout" class="nav-link"> Log out</a>
               </li>
               <li class="nav-item">
                 <a id="ll1" class="nav-link" href="#">
@@ -137,7 +143,7 @@
               </li>
 
               <li class="nav-item">
-                <a id="ll3" class="nav-link" href="code.html">
+                <a id="ll3" class="nav-link" href="code.php">
                   <i class="fa fa-key" aria-hidden="true"></i>
 
                   Code</a
@@ -152,54 +158,61 @@
     <!-- Begin page content -->
 
     <div class="container mt-5">
-  <div class="row mt-5">
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee has exceeded a give leave period
-              <span class="badge badge-secondary text-muted">4</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee qualifies for leave
-              <span class="badge badge-secondary text-muted">7</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee has applied for sick leave
-              <span class="badge badge-secondary text-muted">2</span>
-            </li>
-          </ul>
+      <div class="row mt-5">
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <ul class="list-group">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee has exceeded a give leave period
+                  <span class="badge badge-secondary text-muted">4</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee qualifies for leave
+                  <span class="badge badge-secondary text-muted">7</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee has applied for sick leave
+                  <span class="badge badge-secondary text-muted">2</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <ul class="list-group">
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee is on leave
+                  <span class="badge badge-secondary text-muted">23</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee has failed to return from leave
+                  <span class="badge badge-secondary text-muted">2</span>
+                </li>
+                <li
+                  class="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  Employee is close to retirement
+                  <span class="badge badge-secondary text-muted">10</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-      
-      
     </div>
-    <div class="col-lg-6 col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee is on leave
-              <span class="badge badge-secondary text-muted">23</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee has failed to return from leave
-              <span class="badge badge-secondary text-muted">2</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              Employee is close to retirement
-              <span class="badge badge-secondary text-muted">10</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-      
-    </div>
-  </div>
-</div>
-
 
     <footer id="myFooter" class="py-3 fixed-bottom">
       <div class="container">

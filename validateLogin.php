@@ -86,8 +86,11 @@ function inputsAreCorrect( $arrayOfAllNames) {
   }
 
 
-  $correctInput=false;
-
+  $sql  =  "DELETE FROM `authentication`
+  WHERE recdate < DATE_ADD(CURDATE(), INTERVAL -1 DAY);
+  ";
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
 
 
   $stmt = $conn->prepare("SELECT * FROM sysadmin WHERE 
@@ -102,15 +105,11 @@ function inputsAreCorrect( $arrayOfAllNames) {
        $n= $row['username'];
        $p= $row['password'];
        $mobile= $row['mobile'];
- 
-
-      
-
+     
        session_start();
-    $_SESSION["mobile"]=$mobile;
-
+    $_SESSION["MOBILE"]=$mobile;
+    $_SESSION["ADMIN"]=$username;
        echo 900;
-    
        exit();
      
   }
@@ -141,13 +140,14 @@ function inputsAreCorrect( $arrayOfAllNames) {
 
 
        session_start();
-    $_SESSION["mobile"]=$s;
+    $_SESSION["MOBILE"]=$s;
+    $_SESSION["USER"]=$username;
 
 
     echo 1;
 
   
-      // exit();
+      exit();
      
   }
   else{

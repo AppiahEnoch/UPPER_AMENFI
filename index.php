@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    session_destroy();
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -90,8 +96,8 @@
   </head>
   <body class="text-center">
     <script>
-      var username="";
-      var password="";
+      var username = "";
+      var password = "";
 
       $(document).ready(function () {
         hideSpin();
@@ -112,25 +118,26 @@
         $("#form").submit(function (e) {
           e.preventDefault();
           getInput();
-        
 
-          if(aeEmpty(username)){
+          if (aeEmpty(username)) {
             showErrorText("Enter username");
-            return
+            return;
           }
-          if(aeEmpty(password)){
+          if (aeEmpty(password)) {
             showErrorText("Enter password");
-            return
+            return;
           }
           hideErrorText();
           showSpin();
 
+          $("#tf_username").keyup(function () {
+            hideErrorText();
+          });
+          $("#tf_password").keyup(function () {
+            hideErrorText();
+          });
+
           checkLogin();
-          
-
-    
-
-       
         });
       });
     </script>
@@ -145,54 +152,52 @@
           width="72"
           height="57"
         />
-      
 
+        <div class="col w-100 m-2 bg-light p-2">
+          <h1 id="please_signin" class="h3 mb-3 fw-normal">Please sign in</h1>
 
-<div class="col w-100 m-2 bg-light p-2">
-  <h1 id="please_signin" class="h3 mb-3 fw-normal">Please sign in</h1>
-  
-  <div class="form-floating mb-1">
-    <input
-      type="text"
-      class="form-control"
-      id="tf_username"
-      placeholder="username"
-      required
-    />
-    <label for="tf_username">Username</label>
-  </div>
+          <div class="form-floating mb-1">
+            <input
+              type="text"
+              class="form-control"
+              id="tf_username"
+              placeholder="username"
+              required
+            />
+            <label for="tf_username">Username</label>
+          </div>
 
-  <div class="form-floating mb-0">
-    <input
-      type="password"
-      class="form-control"
-      id="tf_password"
-      placeholder="Password"
-      required
-    />
-    <label for="tf_assword">Password</label>
-    <a id="show_password">
-      <i class="fa fa-eye-slash" aria-hidden="true"></i>
-    </a>
-  </div>
+          <div class="form-floating mb-0">
+            <input
+              type="password"
+              class="form-control"
+              id="tf_password"
+              placeholder="Password"
+              required
+            />
+            <label for="tf_assword">Password</label>
+            <a id="show_password">
+              <i class="fa fa-eye-slash" aria-hidden="true"></i>
+            </a>
+          </div>
 
-  <label id="error_message"> Invalid login attempt </label>
+          <label id="error_message"> Invalid login attempt </label>
 
-  <button id="submit" class="w-100 btn btn-lg" type="submit">
-    Next
-    <i id="spin" class="fas fa-spinner fa-pulse"></i>
-  </button>
-  <div id="signup" class="row">
-    <a id="forgot_password" href="recoverPassword.html">
-      Forgot password</a
-    >
-    <span id="span_signup">
-      New User? &nbsp;
-      <a id="a_signup" href="signup1.html"> Sign up</a></span
-    >
-  </div>
-</div>
-        
+          <button id="submit" class="w-100 btn btn-lg" type="submit">
+            Login
+            <i id="spin" class="fas fa-spinner fa-pulse"></i>
+          </button>
+          <div id="signup" class="row">
+            <a id="forgot_password" href="recoverPassword.html">
+              Forgot password</a
+            >
+            <span id="span_signup">
+              New User? &nbsp;
+              <a id="a_signup" href="signup1.html"> Sign up</a></span
+            >
+          </div>
+        </div>
+
         <p class="mt-5 mb-3 text-muted">&copy; 2022–2023</p>
       </form>
     </main>
@@ -226,29 +231,26 @@
           type: "post",
           data: {
             username: username,
-            password:password
+            password: password,
           },
           cache: false,
           url: "validateLogin.php",
           dataType: "text",
           success: function (data, status) {
-
-            if(data==900){
-
-              openPage("adminpage.html");
-              return
+            if (data == 900) {
+              openPage("adminpage.php");
+              return;
             }
-            if(data==1){
-
-            alert("user")
-              return
+            if (data == 1) {
+              openPage("userPage.php");
+              return;
             }
 
-
-            
+            showErrorText("Invalid Login Attempt");
+            hideSpin();
           },
           error: function (xhr, status, error) {
-             alert(error);
+            alert(error);
           },
         });
       }
@@ -300,34 +302,35 @@
         return !isNaN(parseFloat(n)) && isFinite(n);
       }
 
-      function showErrorText(message){
+      function showErrorText(message) {
+        if (aeEmpty(message)) {
+          $("#error_message").text("Error");
+          $("#error_message").show();
+          return;
+        }
         $("#error_message").text(message);
         $("#error_message").show();
-
       }
 
-      function hideErrorText(){
-        $("#error_message").text('');
+      function hideErrorText() {
+        $("#error_message").text("");
         $("#error_message").hide();
-
+        hideSpin();
       }
 
-
-      function showSpin(){
+      function showSpin() {
         $("#spin").show();
       }
-      function hideSpin(){
+      function hideSpin() {
         $("#spin").hide();
       }
 
-     function openPage_blank(url){
-      window.open(url, '_blank');
-
+      function openPage_blank(url) {
+        window.open(url, "_blank");
       }
-     function openPage(url){
-      window.open(url);
+      function openPage(url) {
+         location.href = url;
       }
     </script>
-
   </body>
 </html>
