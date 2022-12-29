@@ -102,9 +102,9 @@
         hideSpin();
 
         $("#form").submit(function (e) {
-          alert(1)
           e.preventDefault();
           if ($("#codeHide").is(":visible")) {
+            alert("in")
             if (!aeEmpty(genCode)) {
               var userInput = $("#tf_codehideCode").val();
 
@@ -141,17 +141,19 @@
           getCode();
         });
 
-        $("#ss").keyup(function () {});
+        //$("#ss").keyup(function () {});
 
-        $("#myModal").on("click", "#btResend", function (e) {});
+        try {
+          $("#myModal").on("click", "#btResend", function (e) {});
 
-        $("#aeMsuccessw").on("hidden.bs.modal", function () {
-          openPageReplace("signup2.php");
-        });
+          $("#aeMsuccessw").on("hidden.bs.modal", function () {
+            openPageReplace("signup2.php");
+          });
 
-        $("#aeMerror").on("hidden.bs.modal", function () {
-          hideSpin();
-        });
+          $("#aeMerror").on("hidden.bs.modal", function () {
+            hideSpin();
+          });
+        } catch (error) {}
       });
     </script>
 
@@ -168,7 +170,7 @@
 
         <div class="col w-100 m-2 bg-light p-2">
           <h1 id="please_signin" class="h3 mb-3 fw-normal">
-            Registration Page 1/31
+            Registration Page 1/32
           </h1>
 
           <div class="form-floating mb-1">
@@ -411,7 +413,7 @@
           url: "getAuthCode2.php",
           dataType: "text",
           success: function (data, status) {
-             alert(data);
+            alert(data);
 
             if (data == 1) {
               showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
@@ -433,7 +435,7 @@
             sendEmailVCode();
           },
           error: function (xhr, status, error) {
-             alert(error);
+            alert(error);
           },
         });
       }
@@ -461,7 +463,7 @@
           url: "OTP.php",
           dataType: "text",
           success: function (data, status) {
-            alert(data)
+            alert(data);
             hideSpin();
 
             if (aeEmpty(data)) {
