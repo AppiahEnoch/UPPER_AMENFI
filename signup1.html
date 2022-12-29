@@ -104,7 +104,7 @@
         $("#form").submit(function (e) {
           e.preventDefault();
           if ($("#codeHide").is(":visible")) {
-            alert("in")
+            //alert("in")
             if (!aeEmpty(genCode)) {
               var userInput = $("#tf_codehideCode").val();
 
@@ -364,7 +364,7 @@
     ></script>
 
     <script>
-      /*
+      
       function myAjax1() {
         $.ajax({
           type: "post",
@@ -382,7 +382,7 @@
           },
         });
       }
-*/
+
       function insertDetails() {
         $.ajax({
           type: "post",
@@ -414,7 +414,7 @@
           url: "getAuthCode2.php",
           dataType: "text",
           success: function (data, status) {
-            alert(data);
+            //alert(data);
 
             if (data == 1) {
               showAEMerror("MOBILE NUMBER IS ALREADY TAKEN.");
@@ -436,7 +436,7 @@
             sendEmailVCode();
           },
           error: function (xhr, status, error) {
-            alert(error);
+            //alert(error);
           },
         });
       }
@@ -464,7 +464,7 @@
           url: "OTP.php",
           dataType: "text",
           success: function (data, status) {
-            alert(data);
+           // alert(data);
             hideSpin();
 
             if (aeEmpty(data)) {
@@ -478,7 +478,7 @@
             showAEMsuccess("WE HAVE SENT CODE TO " + email, "ENTER CODE!");
           },
           error: function (xhr, status, error) {
-            alert(error);
+           // alert(error);
           },
         });
       }
