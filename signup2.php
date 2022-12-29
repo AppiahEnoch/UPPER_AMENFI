@@ -100,7 +100,7 @@ include "checkReg1.php";
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="index.css" rel="stylesheet" />
+    <link href="index1.css" rel="stylesheet" />
   </head>
   <body class="text-center">
 
