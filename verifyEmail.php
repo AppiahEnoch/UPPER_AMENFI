@@ -2,8 +2,14 @@
 
 require 'vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+$currentHost= gethostname(); 
+
+if($currentHost=="AECleanCodes"){
+
+  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+  $dotenv->load();
+  
+}
 
 require 'includes/Exception.php';
 require 'includes/SMTP.php';
