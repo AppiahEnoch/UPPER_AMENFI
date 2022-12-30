@@ -476,7 +476,7 @@ include "checkReg2.php";
            
           },
           error: function (xhr, status, error) {
-             alert(error);
+           //  alert(error);
           },
         });
       }

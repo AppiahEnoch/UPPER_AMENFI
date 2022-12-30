@@ -411,7 +411,7 @@ $("#aeMerror").on("hidden.bs.modal", function () {
             }
           },
           error: function (xhr, status, error) {
-            alert(error);
+           // alert(error);
           },
         });
       }
