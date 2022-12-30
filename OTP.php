@@ -86,8 +86,9 @@ function sendEmail() {
 
   
   if (!$mail->send()) {
-    exit;
-     // echo "Error: " . $mail->ErrorInfo;
+  
+      echo "Error: " . $mail->ErrorInfo;
+      exit;
   } else {
    echo 1;
    exit;
