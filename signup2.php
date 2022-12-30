@@ -2,9 +2,6 @@
 include "checkReg1.php";
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
