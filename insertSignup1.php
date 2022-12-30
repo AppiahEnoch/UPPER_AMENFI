@@ -103,7 +103,7 @@ $n=1;
 
 echo 1;
 
-session_start();
+ session_start();
  $_SESSION["MOBILE"]=$mobile;
  $_SESSION["REG1"]="reg";
 

@@ -1,19 +1,24 @@
 <?php
 
-
-if (session_status() == PHP_SESSION_ACTIVE) {
-
-  if (isset($_SESSION['REG1'])) {
-     
-  } else {
+session_start();
+if(!(isSessionSet("REG1"))){
     openPage("index.php");
-    exit;
-     
-  }
-} else {
- session_start();
+    exit; 
 }
 
+
+
+
+
+
+
+function isSessionSet($session_name) {
+  if (isset($_SESSION[$session_name])) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 
 function openPage($url) {
