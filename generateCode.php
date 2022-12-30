@@ -124,7 +124,7 @@ catch(Exception $e){
 function generateOTP() {
   $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
   $otp = '';
-  for ($i = 0; $i < 4; $i++) {
+  for ($i = 0; $i < 7; $i++) {
     $otp .= $characters[rand(0, strlen($characters) - 1)];
   }
   return $otp;
