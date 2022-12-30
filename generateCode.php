@@ -119,8 +119,6 @@ catch(Exception $e){
     
 }
 
-
-
 function generateOTP() {
   $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
   $otp = '';

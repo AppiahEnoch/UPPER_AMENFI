@@ -18,7 +18,7 @@ $mobile="";
 
 
 // array to test post and set status of vital variables
-$arrayOfAllNames=[$v1,$v2,$v3,$v4];
+$arrayOfAllNames=[$v1,$v3,$v4];
 
 // function to clean user input
 function cleanInput($data){

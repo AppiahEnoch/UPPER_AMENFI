@@ -103,6 +103,7 @@ include "checkReg2.php";
       var confirmP = "";
 
       $(document).ready(function () {
+        hideSpin();
         $("#show_password").click(function () {
           var passwordInput = $("#tf_password");
           var passwordType = passwordInput.attr("type");
@@ -271,7 +272,7 @@ include "checkReg2.php";
 
           <button id="submit" class="w-100 btn btn-lg" type="submit">
             Submit
-            <i id="" class="fas fa-spinner fa-pulse"></i>
+            <i id="spin" class="fas fa-spinner fa-pulse"></i>
           </button>
           <div id="signup" class="row">
             <span> &nbsp; <a id="a_login" href="index.php"> Login</a></span>
