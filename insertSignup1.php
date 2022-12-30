@@ -83,7 +83,9 @@ function inputsAreCorrect( $arrayOfAllNames) {
   }
 
 
- 
+  session_start();
+ $_SESSION["MOBILE"]=$mobile;
+ $_SESSION["REG1"]="reg";
 
 
 try{
@@ -101,13 +103,13 @@ $n=1;
   $conn->close();
 
 
-echo 1;
 
  session_start();
  $_SESSION["MOBILE"]=$mobile;
  $_SESSION["REG1"]="reg";
 
 
+ echo 1;
     
 }
 catch(Exception $e){
