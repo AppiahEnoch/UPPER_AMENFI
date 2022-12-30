@@ -1,9 +1,8 @@
 <?php
 session_start();
-
 if(!(isSessionSet("REG1"))){
     openPage("index.php");
-    exit; 
+    exit;
 }
 
 

@@ -82,12 +82,13 @@ function inputsAreCorrect( $arrayOfAllNames) {
     exit();
   }
   
+
+
+
+
+
   session_start();
-  $_SESSION["REG2"]="reg";
-
-
-
-
+  $_SESSION["REG2"]="reg2";
 
 
 

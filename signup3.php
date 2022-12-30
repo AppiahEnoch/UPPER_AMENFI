@@ -1,4 +1,3 @@
-
 <?php
 include "checkReg2.php";
 ?>

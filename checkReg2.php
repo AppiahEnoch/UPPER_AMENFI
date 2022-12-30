@@ -3,7 +3,6 @@
 session_start();
 if(!(isSessionSet("REG2"))){
     openPage("index.php");
-
     exit; 
 }
 
