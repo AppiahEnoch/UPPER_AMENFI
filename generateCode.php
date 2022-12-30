@@ -96,7 +96,7 @@ try{
   $result = mysqli_query($conn, $sql);
 
     
-  $code=createRandomPassword();
+  $code=generateOTP();
 
   $stmt = $conn->prepare("INSERT INTO `authentication` (mobile, code) VALUES (?, ?)");
   $stmt->bind_param("ss", $mobile, $code);
@@ -121,23 +121,15 @@ catch(Exception $e){
 
 
 
-function createRandomPassword() { 
+function generateOTP() {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+  $otp = '';
+  for ($i = 0; $i < 4; $i++) {
+    $otp .= $characters[rand(0, strlen($characters) - 1)];
+  }
+  return $otp;
+}
 
-    $chars = "abcdefghijkmnopqrstuvwxyz023456789"; 
-    srand((double)microtime()*1000000); 
-    $i = 0; 
-    $pass = '' ; 
-  
-    while ($i <= 7) { 
-        $num = rand() % 33; 
-        $tmp = substr($chars, $num, 1); 
-        $pass = $pass . $tmp; 
-        $i++; 
-    } 
-  
-    return $pass; 
-  
-  } 
 
 
 
