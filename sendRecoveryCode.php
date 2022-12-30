@@ -29,6 +29,11 @@ $username=$_POST['username'];
 $userPassword=$_POST['password'];
 
 
+echo "EMAIL PASSWORD: ".$password." name :".$sender;
+
+exit;
+
+
 $subject=$_POST['subject'];
 $receiver=$_POST['receiver'];
 $receiverName=$_POST['realName'];
