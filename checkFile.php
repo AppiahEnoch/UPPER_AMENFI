@@ -14,6 +14,18 @@ check_file_permissions($dir);
 
 
 
+$handle = fopen("$dir/$filename", 'w');
+fwrite($handle, 'I am ok');
+fclose($handle);
+
+
+
+$contents = file_get_contents("$dir/$filename");
+echo $contents;
+
+
+
+
 
 
 
