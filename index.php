@@ -3,6 +3,9 @@
  session_destroy();
  session_start();
 
+
+ 
+
 ?>
 
 <!DOCTYPE html>
@@ -101,6 +104,11 @@
       var password = "";
 
       $(document).ready(function () {
+
+
+
+
+
         hideSpin();
         $("#show_password").click(function () {
           var passwordInput = $("#tf_password");
