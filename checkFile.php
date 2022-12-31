@@ -2,17 +2,6 @@
 $dir = 'file';
 
 
-
-
-
-
-
-
-
-
-
-
-
 folderExist($dir);
 check_folder_permissions($dir);
 check_file_permissions($dir);
@@ -22,10 +11,11 @@ check_file_permissions($dir);
 
 
 function folderExist($dir) {
+    echo "<br>";
     if (file_exists($dir)) {
-      echo "File or directory exists";
+      echo "File or directory exists<br>";
     } else {
-      echo "File or directory does not exist";
+      echo "File or directory does not exist <br>";
     }
   }
   
@@ -33,6 +23,7 @@ function folderExist($dir) {
   
   
   function check_folder_permissions($dir) {
+    echo "<br>";
     if (is_readable($dir) && is_writable($dir)) {
       echo "Directory is readable and writable";
     } else {
@@ -43,6 +34,7 @@ function folderExist($dir) {
   
   
   function check_file_permissions($dir) {
+    echo "<br>";
     if (is_dir($dir)) {
       if ($dh = opendir($dir)) {
         while (($file = readdir($dh)) !== false) {
