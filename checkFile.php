@@ -7,7 +7,7 @@ folderExist($dir);
 check_folder_permissions($dir);
 
 
-//create_file($dir, $filename);
+create_file($dir, $filename);
 
 
 check_file_permissions($dir);
