@@ -1,23 +1,5 @@
 <?php
-$dir='file';
-
-
-$output = array();
-$return_var = 0;
-exec("sudo mkdir -p -m 777 /file && sudo chmod -R 777 /file", $output, $return_var);
-
-if ($return_var == 0) {
-  echo "Command executed successfully";
-} else {
-  echo "Command failed with return code $return_var";
-}
-
-
-
-
-
-
-
+$dir="file";
 
 
 
