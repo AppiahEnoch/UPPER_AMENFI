@@ -1,10 +1,24 @@
 <?php
 $dir = 'files9';
-
+$filename="uu.txt";
 
 folderExist($dir);
+
 check_folder_permissions($dir);
+
+
+create_file($dir, $filename);
+
+
 check_file_permissions($dir);
+
+
+
+
+
+
+
+
 
 
 
@@ -30,6 +44,21 @@ function folderExist($dir) {
       echo "Directory is not readable and writable";
     }
   }
+
+
+
+
+  function create_file($dir, $filename) {
+    // Create the full path to the file
+    $file = "$dir/$filename";
+  
+    // Create the file if it doesn't exist
+    $handle = fopen($file, 'w');
+  
+    // Close the file handle
+    fclose($handle);
+  }
+  
   
   
   
