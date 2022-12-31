@@ -1,5 +1,5 @@
 <?php
-$dir = 'file';
+$dir = 'files';
 
 
 folderExist($dir);
