@@ -1,5 +1,22 @@
 <?php
-$dir="file";
+$dir = 'file';
+
+// Create directory with read and write permissions for everyone
+if (!is_dir($dir)) {
+  mkdir($dir, 0777, true);
+}
+
+// Make every file in the directory writable
+foreach (glob("$dir/*") as $file) {
+  chmod($file, 0777);
+}
+
+
+
+
+
+
+
 
 
 
